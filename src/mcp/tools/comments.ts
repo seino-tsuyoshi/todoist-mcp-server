@@ -30,11 +30,7 @@ export function registerCommentTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Comment created successfully on task (ID: ${taskId}) with ID: ${comment.id}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(comment, null, 2),
+            text: `Comment created successfully on task (ID: ${taskId}) with ID: ${comment.id}\n\n${JSON.stringify(comment, null, 2)}`,
           },
         ],
       };
@@ -62,11 +58,7 @@ export function registerCommentTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Comment created successfully on project (ID: ${projectId}) with ID: ${comment.id}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(comment, null, 2),
+            text: `Comment created successfully on project (ID: ${projectId}) with ID: ${comment.id}\n\n${JSON.stringify(comment, null, 2)}`,
           },
         ],
       };
@@ -85,11 +77,7 @@ export function registerCommentTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Comment updated successfully with ID: ${comment.id}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(comment, null, 2),
+            text: `Comment updated successfully with ID: ${comment.id}\n\n${JSON.stringify(comment, null, 2)}`,
           },
         ],
       };
@@ -108,11 +96,7 @@ export function registerCommentTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Retrieved ${comments.length} comment(s) for task ID: ${taskId}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(comments, null, 2),
+            text: `Retrieved ${comments.length} comment(s) for task ID: ${taskId}\n\n${JSON.stringify(comments, null, 2)}`,
           },
         ],
       };
@@ -131,11 +115,7 @@ export function registerCommentTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Retrieved ${comments.length} comment(s) for project ID: ${projectId}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(comments, null, 2),
+            text: `Retrieved ${comments.length} comment(s) for project ID: ${projectId}\n\n${JSON.stringify(comments, null, 2)}`,
           },
         ],
       };

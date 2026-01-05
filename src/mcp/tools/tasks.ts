@@ -6,7 +6,6 @@ import {
   deleteTaskParamsSchema,
   getTaskParamsSchema,
   getTasksByFilterParamsSchema,
-  getTasksParamsSchema,
   moveTasksToParentParamsSchema,
   moveTasksToProjectParamsSchema,
   moveTasksToSectionParamsSchema,
@@ -63,11 +62,7 @@ export function registerTaskTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Task "${task.content}" created successfully with ID: ${task.id}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(task, null, 2),
+            text: `Task "${task.content}" created successfully with ID: ${task.id}\n\n${JSON.stringify(task, null, 2)}`,
           },
         ],
       };
@@ -86,11 +81,7 @@ export function registerTaskTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Task "${task.content}" (ID: ${task.id}) updated successfully`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(task, null, 2),
+            text: `Task "${task.content}" (ID: ${task.id}) updated successfully\n\n${JSON.stringify(task, null, 2)}`,
           },
         ],
       };
@@ -154,11 +145,7 @@ export function registerTaskTools(server: McpServer, client: TodoistClient) {
           content: [
             {
               type: "text",
-              text: `Task "${task.content}" (ID: ${task.id}) reopened successfully`,
-            },
-            {
-              type: "text",
-              text: JSON.stringify(task, null, 2),
+              text: `Task "${task.content}" (ID: ${task.id}) reopened successfully\n\n${JSON.stringify(task, null, 2)}`,
             },
           ],
         };
@@ -174,29 +161,19 @@ export function registerTaskTools(server: McpServer, client: TodoistClient) {
     },
   );
 
-  // Get tasks with optional filtering
+  // Get tasks with optional filtering - no input schema to allow undefined arguments from Smart Composer
   server.tool(
     "get_tasks",
     "Retrieve Todoist tasks with flexible filtering options. Can filter by project, section, labels, or use custom Todoist filter queries. Returns a comprehensive list of tasks with their metadata including content, description, project assignment, due dates, priority levels, labels, completion status, and hierarchy information. Without filters, returns all tasks accessible to the authenticated user.",
-    getTasksParamsSchema.shape,
-    async ({ projectId, sectionId, parentId, label, ids }) => {
-      const tasks = await client.getTasks({
-        projectId,
-        sectionId,
-        parentId,
-        label,
-        ids,
-      });
+    // No input schema - skip validation to allow undefined arguments
+    async () => {
+      const tasks = await client.getTasks({});
 
       return {
         content: [
           {
             type: "text",
-            text: `Retrieved ${tasks.length} task(s)`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(tasks, null, 2),
+            text: `Retrieved ${tasks.length} task(s)\n\n${JSON.stringify(tasks, null, 2)}`,
           },
         ],
       };
@@ -218,11 +195,7 @@ export function registerTaskTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Retrieved ${tasks.length} task(s) using filter: "${query}"`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(tasks, null, 2),
+            text: `Retrieved ${tasks.length} task(s) using filter: "${query}"\n\n${JSON.stringify(tasks, null, 2)}`,
           },
         ],
       };
@@ -241,11 +214,7 @@ export function registerTaskTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Retrieved task "${task.content}" (ID: ${task.id})`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(task, null, 2),
+            text: `Retrieved task "${task.content}" (ID: ${task.id})\n\n${JSON.stringify(task, null, 2)}`,
           },
         ],
       };
@@ -264,11 +233,7 @@ export function registerTaskTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Successfully moved ${movedTasks.length} task(s) to project ${params.projectId}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(movedTasks, null, 2),
+            text: `Successfully moved ${movedTasks.length} task(s) to project ${params.projectId}\n\n${JSON.stringify(movedTasks, null, 2)}`,
           },
         ],
       };
@@ -287,11 +252,7 @@ export function registerTaskTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Successfully moved ${movedTasks.length} task(s) to section ${params.sectionId}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(movedTasks, null, 2),
+            text: `Successfully moved ${movedTasks.length} task(s) to section ${params.sectionId}\n\n${JSON.stringify(movedTasks, null, 2)}`,
           },
         ],
       };
@@ -310,11 +271,7 @@ export function registerTaskTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Successfully moved ${movedTasks.length} task(s) to become subtasks of parent task ${params.parentId}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(movedTasks, null, 2),
+            text: `Successfully moved ${movedTasks.length} task(s) to become subtasks of parent task ${params.parentId}\n\n${JSON.stringify(movedTasks, null, 2)}`,
           },
         ],
       };

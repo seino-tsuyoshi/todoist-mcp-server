@@ -25,11 +25,7 @@ export function registerSectionTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Section "${section.name}" created successfully with ID: ${section.id}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(section, null, 2),
+            text: `Section "${section.name}" created successfully with ID: ${section.id}\n\n${JSON.stringify(section, null, 2)}`,
           },
         ],
       };
@@ -48,11 +44,7 @@ export function registerSectionTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Section "${section.name}" (ID: ${section.id}) updated successfully`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(section, null, 2),
+            text: `Section "${section.name}" (ID: ${section.id}) updated successfully\n\n${JSON.stringify(section, null, 2)}`,
           },
         ],
       };
@@ -92,11 +84,7 @@ export function registerSectionTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Retrieved ${sections.length} section(s) from project ${projectId}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(sections, null, 2),
+            text: `Retrieved ${sections.length} section(s) from project ${projectId}\n\n${JSON.stringify(sections, null, 2)}`,
           },
         ],
       };
@@ -115,11 +103,7 @@ export function registerSectionTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Retrieved section "${section.name}" (ID: ${section.id})`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(section, null, 2),
+            text: `Retrieved section "${section.name}" (ID: ${section.id})\n\n${JSON.stringify(section, null, 2)}`,
           },
         ],
       };

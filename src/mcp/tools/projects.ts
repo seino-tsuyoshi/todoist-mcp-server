@@ -4,7 +4,6 @@ import {
   createProjectParamsSchema,
   deleteProjectParamsSchema,
   getProjectParamsSchema,
-  getProjectsParamsSchema,
   updateProjectParamsSchema,
 } from "../../lib/todoist/types";
 
@@ -27,11 +26,7 @@ export function registerProjectTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Project "${project.name}" created successfully with ID: ${project.id}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(project, null, 2),
+            text: `Project "${project.name}" created successfully with ID: ${project.id}\n\n${JSON.stringify(project, null, 2)}`,
           },
         ],
       };
@@ -50,11 +45,7 @@ export function registerProjectTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Project "${project.name}" (ID: ${project.id}) updated successfully`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(project, null, 2),
+            text: `Project "${project.name}" (ID: ${project.id}) updated successfully\n\n${JSON.stringify(project, null, 2)}`,
           },
         ],
       };
@@ -82,11 +73,11 @@ export function registerProjectTools(server: McpServer, client: TodoistClient) {
     },
   );
 
-  // Get all projects
+  // Get all projects - no input schema to allow undefined arguments from Smart Composer
   server.tool(
     "get_projects",
     "Retrieve all Todoist projects accessible to the authenticated user. Returns a comprehensive list of projects including personal and workspace projects with their metadata such as name, color, favorite status, view style, and hierarchy information.",
-    getProjectsParamsSchema.shape,
+    // No input schema - skip validation to allow undefined arguments
     async () => {
       const projects = await client.getProjects();
 
@@ -94,11 +85,7 @@ export function registerProjectTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Retrieved ${projects.length} project(s)`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(projects, null, 2),
+            text: `Retrieved ${projects.length} project(s)\n\n${JSON.stringify(projects, null, 2)}`,
           },
         ],
       };
@@ -117,11 +104,7 @@ export function registerProjectTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Retrieved project "${project.name}" (ID: ${project.id})`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(project, null, 2),
+            text: `Retrieved project "${project.name}" (ID: ${project.id})\n\n${JSON.stringify(project, null, 2)}`,
           },
         ],
       };
