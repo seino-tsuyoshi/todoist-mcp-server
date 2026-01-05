@@ -4,7 +4,6 @@ import {
   createLabelParamsSchema,
   deleteLabelParamsSchema,
   getLabelParamsSchema,
-  getLabelsParamsSchema,
   updateLabelParamsSchema,
 } from "../../lib/todoist/types";
 export function registerLabelTools(server: McpServer, client: TodoistClient) {
@@ -25,11 +24,7 @@ export function registerLabelTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Label "${label.name}" created successfully with ID: ${label.id}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(label, null, 2),
+            text: `Label "${label.name}" created successfully with ID: ${label.id}\n\n${JSON.stringify(label, null, 2)}`,
           },
         ],
       };
@@ -48,11 +43,7 @@ export function registerLabelTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Label "${label.name}" (ID: ${label.id}) updated successfully`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(label, null, 2),
+            text: `Label "${label.name}" (ID: ${label.id}) updated successfully\n\n${JSON.stringify(label, null, 2)}`,
           },
         ],
       };
@@ -71,21 +62,17 @@ export function registerLabelTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Retrieved label "${label.name}" with ID: ${label.id}`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(label, null, 2),
+            text: `Retrieved label "${label.name}" with ID: ${label.id}\n\n${JSON.stringify(label, null, 2)}`,
           },
         ],
       };
     },
   );
-  // Get all labels
+  // Get all labels - no input schema to allow undefined arguments from Smart Composer
   server.tool(
     "get_labels",
     "Retrieve all personal labels accessible to the authenticated user with their complete metadata including name, color, order, and favorite status. Returns a comprehensive list of labels that can be used for task organization and filtering. This tool provides read-only access to label information and handles pagination automatically.",
-    getLabelsParamsSchema.shape,
+    // No input schema - skip validation to allow undefined arguments
     async () => {
       const labels = await client.getLabels();
 
@@ -93,11 +80,7 @@ export function registerLabelTools(server: McpServer, client: TodoistClient) {
         content: [
           {
             type: "text",
-            text: `Retrieved ${labels.length} label(s)`,
-          },
-          {
-            type: "text",
-            text: JSON.stringify(labels, null, 2),
+            text: `Retrieved ${labels.length} label(s)\n\n${JSON.stringify(labels, null, 2)}`,
           },
         ],
       };
