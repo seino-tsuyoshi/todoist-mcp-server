@@ -74,7 +74,7 @@ export const deleteProjectParamsSchema = z.object({
   id: z.string().min(1).describe("ID of the project to delete"),
 });
 
-export const getProjectsParamsSchema = z.object({});
+export const getProjectsParamsSchema = z.object({}).optional().default({});
 
 export const getProjectParamsSchema = z.object({
   id: z.string().min(1).describe("ID of the project to retrieve"),
@@ -299,7 +299,7 @@ export const updateLabelParamsSchema = z.object({
   isFavorite: z.boolean().optional().describe("New favorite status (optional)"),
 });
 
-export const getLabelsParamsSchema = z.object({});
+export const getLabelsParamsSchema = z.object({}).optional().default({});
 
 export const getLabelParamsSchema = z.object({
   id: z.string().min(1).describe("ID of the label to retrieve"),
